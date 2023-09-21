@@ -6,7 +6,7 @@
 #include <map>
 #include <iomanip>
 using namespace std;
-
+//QUALQUER MERDA
 // Definição da classe Entrevistado
 class Entrevistado
 {
