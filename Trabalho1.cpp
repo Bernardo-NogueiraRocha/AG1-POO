@@ -63,10 +63,10 @@ public:
         arquivo.close();
     }
     int getSize();
-    int totalFeminino();
+    int totalPorSexo(string a);
     map<string,int>PercentualFaixa();
     map<string,int>PercentualArea();
-    int totalEnsinoMedio();
+    int totalPorEscolaridade(string a);
     int total60Smartphones();
     int total15Smartphones();
     map<string,int>AreasPrioritarias();
@@ -76,39 +76,23 @@ int Entrevistados::getSize(){
     return entrevistados.size();
 }
 
-int Entrevistados::totalFeminino(){
-    int totalFeminino = 0;
+int Entrevistados::totalPorSexo(string a){
+    int totalSexo = 0;
     for (const Entrevistado &entrevistado : entrevistados)
     {
-        if (entrevistado.genero == "f")
+        if (entrevistado.genero == a)
         {
-            totalFeminino++;
+            totalSexo++;
         }
     }
-    return totalFeminino;
+    return totalSexo;
 }
 
 map<string,int> Entrevistados::PercentualFaixa(){
     map<string, int> faixasEtarias;
     for (const Entrevistado &entrevistado : entrevistados)
     {
-        string faixa;
-        if (entrevistado.idade == " Até 15 anos")
-        {
-            faixa = "Até 15 anos";
-        }
-        else if (entrevistado.idade == " De 16 a 29 anos")
-        {
-            faixa = "16-29 anos";
-        }
-        else if (entrevistado.idade == " De 30 a 59 anos")
-        {
-            faixa = "30-59 anos";
-        }
-        else
-        {
-            faixa = "Acima de 60 anos";
-        }
+        string faixa= entrevistado.idade;
         faixasEtarias[faixa]++;
     }
     cout << "3. Percentual de entrevistados por faixa etaria:" << endl;
@@ -135,7 +119,7 @@ map<string,int> Entrevistados::PercentualArea(){
     return regioes;
 }
 
-int Entrevistados::totalEnsinoMedio(){
+int Entrevistados::totalPorEscolaridade(string a){
     int totalEnsinoMedioCompleto = 0;
     for (const Entrevistado &entrevistado : entrevistados)
     {
@@ -188,7 +172,7 @@ int main()
     cout << "1. Total de entrevistados: " << totalEntrevistados << endl;
 
     // Função 2: Número de entrevistados do sexo feminino
-    int totalFeminino = entrevistados.totalFeminino();
+    int totalFeminino = entrevistados.totalPorSexo("f");
     cout << "2. Numero de entrevistados do sexo feminino: " << totalFeminino << endl;
 
     // Função 3: Percentual de entrevistados por faixa etária
@@ -210,7 +194,7 @@ int main()
     // }
 
     // Função 5: Número de entrevistados com pelo menos o ensino médio completo
-    int totalEnsinoMedioCompleto = entrevistados.totalEnsinoMedio();
+    int totalEnsinoMedioCompleto = entrevistados.totalPorEscolaridade("Ensino medio completo");
     cout << "5. Numero de entrevistados com pelo menos o ensino medio completo: " << totalEnsinoMedioCompleto << endl;
 
     // Função 6: Número de entrevistados com idade acima de 60 anos que utilizam smartphone
