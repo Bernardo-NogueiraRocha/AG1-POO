@@ -123,7 +123,7 @@ int Entrevistados::totalPorEscolaridade(string a){
     int totalEnsinoMedioCompleto = 0;
     for (const Entrevistado &entrevistado : entrevistados)
     {
-        if (entrevistado.escolaridade == " Ensino médio completo" || entrevistado.escolaridade == " Ensino superior completo")
+        if (entrevistado.escolaridade == a)
         {
             totalEnsinoMedioCompleto++;
         }
@@ -194,7 +194,7 @@ int main()
     // }
 
     // Função 5: Número de entrevistados com pelo menos o ensino médio completo
-    int totalEnsinoMedioCompleto = entrevistados.totalPorEscolaridade("Ensino medio completo");
+    int totalEnsinoMedioCompleto = entrevistados.totalPorEscolaridade(" Ensino médio completo");
     cout << "5. Numero de entrevistados com pelo menos o ensino medio completo: " << totalEnsinoMedioCompleto << endl;
 
     // Função 6: Número de entrevistados com idade acima de 60 anos que utilizam smartphone
