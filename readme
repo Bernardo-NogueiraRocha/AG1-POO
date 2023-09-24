@@ -1,0 +1,5 @@
+Para execução do arquivo basta executar: 
+No linux use o comando:
+./build.sh
+No  windows use o comando: 
+bash build.sh
