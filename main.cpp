@@ -5,13 +5,13 @@
 #include <string>
 #include <map>
 #include <iomanip>
-#include <entrevistados.h>
+#include "entrevistados.h"
 using namespace std;
 
 
 int main()
 {
-    Entrevistados entrevistados("data/Entrevistados.csv");
+    Entrevistados entrevistados("../data/Entrevistados.csv");
     // Função 1: Total de entrevistados
     int totalEntrevistados = entrevistados.getSize();
     cout << "1. Total de entrevistados: " << totalEntrevistados << endl;
