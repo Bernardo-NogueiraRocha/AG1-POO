@@ -35,7 +35,9 @@ public:
     int totalPorEscolaridade(string a);
     int total60Smartphones();
     int total15Smartphones();
+    double percentualPorArea(string regiao);
     map<string,int>AreasPrioritarias();
+    int superiorA30();
 };
 Entrevistado::Entrevistado(string a, string b, string c, string d, string e, string f)
 {
@@ -161,4 +163,28 @@ map<string,int> Entrevistados::AreasPrioritarias(){
         areasPrioritarias[entrevistado.areaEscolhida]++;
     }
     return areasPrioritarias;
+}
+
+double Entrevistados::percentualPorArea(string regiao){
+    map<string,int>regioes=PercentualArea();
+    for (const auto &par : regioes)
+    {
+        if(par.first == regiao){
+            double percentual = (static_cast<double>(par.second) / entrevistados.size()) * 100.0;
+            cout << "   - " << par.first << ": " << fixed << setprecision(2) << percentual << "%" << endl;
+            return percentual;
+        }
+    }
+    return 0.0;
+}
+
+int Entrevistados::superiorA30(){
+    int contador=0;
+    for (const Entrevistado &entrevistado : entrevistados)
+    {
+        if(entrevistado.idade == " De 30 a 59 anos" || entrevistado.idade == " Acima de 60 anos"){
+            contador++;
+        }
+    }
+    return contador;
 }
