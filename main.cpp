@@ -21,7 +21,11 @@ int main()
     cout << "2. Numero de entrevistados do sexo masculino: " << totalFeminino << endl;
 
     cout<<"\nPercentual de pessoas da Regiao Extremo Oeste:"<<entrevistados.percentualPorArea(" Região Extremo Oeste")<<"%";
-    cout<<"\nTotal de pessoas acima de 29 anos:"<<entrevistados.superiorA30();
+    string a= " Até 15 anos";
+    string b= " Smartphone";
+    //cout<<"\nTotal de pessoas acima de 29 anos:"<<entrevistados.superiorA30();
+    cout<<"\n\n";
+    entrevistados.totalporIdadeETecnologia(a,b);
     // Função 3: Percentual de entrevistados por faixa etária
     // map<string, int> faixasEtarias= entrevistados.PercentualFaixa();
     // map<string, int> regioes=entrevistados.PercentualArea();

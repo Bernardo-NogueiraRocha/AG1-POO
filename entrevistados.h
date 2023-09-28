@@ -38,6 +38,7 @@ public:
     double percentualPorArea(string regiao);
     map<string,int>AreasPrioritarias();
     int superiorA30();
+    int totalporIdadeETecnologia(string a,string b);
 };
 Entrevistado::Entrevistado(string a, string b, string c, string d, string e, string f)
 {
@@ -187,4 +188,26 @@ int Entrevistados::superiorA30(){
         }
     }
     return contador;
+}
+
+int Entrevistados::totalporIdadeETecnologia(string a, string b){
+    map<pair<string,string>, int> contagem;
+
+    // Itere sobre o vector de entrevistados e atualize a contagem
+    for (const Entrevistado& entrevistado : entrevistados) {
+        pair<string, string> chave(entrevistado.idade, entrevistado.tecnologia);
+        contagem[chave]++;
+    }
+
+    // Consulte o número de entrevistados com uma idade específica e tecnologia específica
+    pair<string, string> chaveBusca(a, b);
+
+    if (contagem.find(chaveBusca) != contagem.end()) {
+        cout << "Número de entrevistados com idade " << a << " e tecnologia " << b << ": "<< contagem[chaveBusca] << endl;
+        return contagem[chaveBusca];
+    } else {
+        cout << "Nenhum entrevistado encontrado com idade " << a << " e tecnologia " << b << endl;
+    }
+
+    return 0;
 }
