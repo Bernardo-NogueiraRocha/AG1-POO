@@ -12,6 +12,7 @@ public:
     CSVReader(const std::string& filename) {
         std::ifstream file(filename);
         std::string line;
+        getline(file,line);
         while (getline(file, line)) {
             std::vector<std::string> row;
             std::stringstream ss(line);
