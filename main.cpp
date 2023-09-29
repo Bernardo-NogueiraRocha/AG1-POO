@@ -26,5 +26,6 @@ int main()
     cout << "Tecnologia mais utilizada pelos entrevistados: " << entrevistados.getMaxByCampo("tecnologia") << endl;
     cout << "Percentual feminino: " << (float)entrevistados.getStatistic({{"sexo", {"f"}}}) / entrevistados.getSize() << endl;
     cout << "Numero de entrevistados que consideram educação a area prioritária: " << entrevistados.getStatistic({{"area", {"Educação"}}}) << endl;
+    entrevistados.query();
     return 0;
 }

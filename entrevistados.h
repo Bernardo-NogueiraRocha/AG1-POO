@@ -7,7 +7,8 @@
 #include <iomanip>
 #include "CSVReader.h"
 #include "entrevistado.h"
-#include<unordered_map>
+#include <unordered_map>
+#include<algorithm>
 using namespace std;
 #define CAMPOS 6
 
@@ -118,7 +119,139 @@ public:
         }
         return maxStr;
     }
+    vector<string> getCampos()
+    {
+        return campos;
+    }
 
+    vector<string> getAllUniqueByCampo(string c)
+    {
+        vector<string> unique;
+        for (auto &e : entrevistados)
+        {
+
+            if (find(unique.begin(), unique.end(), e.getInfoByCampo(c)) == unique.end())
+                unique.push_back(e.getInfoByCampo(c));
+        }
+        return unique;
+    }
+
+    void query()
+    {
+        vector<string> mycampos;
+        vector<pair<string, vector<string>>> dados;
+        vector<string> myopcoes;
+        string campo;
+        int num;
+
+        while (true)
+        {
+            system("clear");
+            bool flag_ent = false;
+            cout << "Buscar por? (-1 para sair):" << endl;
+
+            for (int i = 0; i < this->getCampos().size(); i++)
+            {
+                if (find(mycampos.begin(), mycampos.end(), this->getCampos()[i]) == mycampos.end())
+                {
+                    flag_ent = true;
+                    cout << i << ") " << this->getCampos()[i] << endl;
+                }
+            }
+
+            if (!flag_ent)
+                break;
+
+            cout << endl;
+            cin >> num;
+
+            if (num == -1 || num >= this->getCampos().size())
+                break;
+
+            campo = this->getCampos()[num];
+            vector<string> opcoes;
+
+            while (true)
+            {
+                system("clear");
+                bool flag = false;
+                cout << "Escolha as opções desejadas para " << campo << " (-1 para sair):" << endl;
+
+                for (int i = 0; i < this->getAllUniqueByCampo(campo).size(); i++)
+                {
+                    if (find(opcoes.begin(), opcoes.end(), this->getAllUniqueByCampo(campo)[i]) == opcoes.end())
+                    {
+                        cout << i << ") " << this->getAllUniqueByCampo(campo)[i] << endl;
+                        flag = true;
+                    }
+                }
+
+                if (!flag)
+                    break;
+
+                cout << endl;
+
+                cout << "Opções selecionadas para " << campo << ":" << endl;
+                for (int s = 0; s < opcoes.size(); s++)
+                {
+                    cout << opcoes[s];
+                    if (s != opcoes.size() - 1)
+                        cout << ", ";
+                }
+
+                cout << endl
+                     << endl;
+                cin >> num;
+
+                if (num == -1 || num >= this->getAllUniqueByCampo(campo).size())
+                    break;
+
+                if (find(opcoes.begin(), opcoes.end(), this->getAllUniqueByCampo(campo)[num]) == opcoes.end())
+                    opcoes.push_back(this->getAllUniqueByCampo(campo)[num]);
+            }
+
+            if (!opcoes.empty())
+            {
+                dados.push_back({campo, opcoes});
+                mycampos.push_back(campo);
+            }
+
+            cout << endl
+                 << endl;
+            cout << dados.size() << endl;
+
+            system("clear");
+
+            cout << "Dados selecionados:" << endl
+                 << endl;
+
+            for (int p = 0; p < dados.size(); p++)
+            {
+                cout << "\t" << dados[p].first << ": ";
+                for (int s = 0; s < dados[p].second.size(); s++)
+                {
+                    cout << dados[p].second[s];
+                    if (s != dados[p].second.size() - 1)
+                        cout << " ou ";
+                }
+
+                if (p != dados.size() - 1)
+                    cout << endl
+                         << "\tE\n";
+            }
+
+            cout << endl
+                 << endl;
+            cout << "Deseja adicionar mais um campo? (s/n)" << endl;
+            char c;
+            cin >> c;
+
+            if (c == 'n')
+                break;
+        }
+
+        cout << "Número de entrevistados que correspondem à pesquisa: " << this->getStatistic(dados) << endl;
+    }
     // Destrutor padrão.
     ~Entrevistados() {}
 };
