@@ -5,50 +5,26 @@
 #include <string>
 #include <map>
 #include <iomanip>
+#include <unordered_map>
 #include "entrevistados.h"
 using namespace std;
 
 
 int main()
 {
-    Entrevistados entrevistados("../data/Entrevistados.csv");
-    // Função 1: Total de entrevistados
-    int totalEntrevistados = entrevistados.getSize();
-    cout << "1. Total de entrevistados: " << totalEntrevistados << endl;
+    vector<string> campos({"sexo", "idade", "escolaridade", "regiao", "tecnologia", "area"});
+    Entrevistados entrevistados(campos, "./data/Entrevistados.csv");
 
-    // Função 2: Número de entrevistados do sexo feminino
-    int totalFeminino = entrevistados.totalPorSexo("m");
-    cout << "2. Numero de entrevistados do sexo masculino: " << totalFeminino << endl;
-
-    cout<<"\nPercentual de pessoas da Regiao Extremo Oeste:"<<entrevistados.percentualPorArea(" Região Extremo Oeste")<<"%";
-    string a= " Até 15 anos";
-    string b= " Smartphone";
-    //cout<<"\nTotal de pessoas acima de 29 anos:"<<entrevistados.superiorA30();
-    cout<<"\n\n";
-    entrevistados.totalporIdadeETecnologia(a,b);
-    // Função 3: Percentual de entrevistados por faixa etária
-    // map<string, int> faixasEtarias= entrevistados.PercentualFaixa();
-    // map<string, int> regioes=entrevistados.PercentualArea();
-    
-    // // Função 5: Número de entrevistados com pelo menos o ensino médio completo
-    // int totalEnsinoMedioCompleto = entrevistados.totalPorEscolaridade(" Ensino superior completo");
-    // cout << "5. Numero de entrevistados com pelo menos o ensino superior completo: " << totalEnsinoMedioCompleto << endl;
-
-    // // Função 6: Número de entrevistados com idade acima de 60 anos que utilizam smartphone
-    // int acima60ComSmartphone = entrevistados.total60Smartphones();
-    // cout << "6. Numero de entrevistados com idade acima de 60 anos que utilizam smartphone: " << acima60ComSmartphone << endl;
-
-    // // Função 7: Número de entrevistados com idade até 15 anos que utilizam smartphone
-    // int ate15ComSmartphone = entrevistados.total15Smartphones();
-    // cout << "7. Numero de entrevistados com idade ate 15 anos que utilizam smartphone: " << ate15ComSmartphone << endl;
-
-    // // Função 8: Área prioritária dos entrevistados
-    // map<string, int> areasPrioritarias=entrevistados.AreasPrioritarias();
-    // cout << "8. Area prioritaria dos entrevistados:" << endl;
-    // for (const auto &par : areasPrioritarias)
-    // {
-    //     cout << "   - " << par.first << ": " << par.second << " entrevistados" << endl;
-    // }
-
+    cout << "Número de Entrevistados: " << entrevistados.getSize() << endl;
+    cout << "Número de Entrevistados do sexo masculino: " << entrevistados.getStatistic({{"sexo", {"m"}}}) << endl;
+    cout << "Número de Entrevistados do sexo feminino: " << entrevistados.getStatistic({{"sexo", {"f"}}}) << endl;
+    cout << "Número de Entrevistados de outro sexo: " << entrevistados.getStatistic({{"sexo", {"o"}}}) << endl;
+    cout << "Percentual com idade igual ou superior a 30: " << (float)entrevistados.getStatistic({{"idade", {"De 30 a 59 anos", "Acima de 60 anos"}}}) / entrevistados.getSize() << endl;
+    cout << "Percentual de residentes na região Extremo Oeste: " << (float)entrevistados.getStatistic({{"regiao", {"Região Extremo Oeste"}}}) / entrevistados.getSize() << endl;
+    cout << "Número de entrevistados com ensiono superior completo: " << entrevistados.getStatistic({{"escolaridade", {"Ensino superior completo"}}}) << endl;
+    cout << "Número de entrevistados acima de 29 anos que utilizam Notebook ou Netbook: " << entrevistados.getStatistic({{"idade", {"De 30 a 59 anos", "Acima de 60 anos"}}, {"tecnologia", {"Notebook ou Netbook"}}}) << endl;
+    cout << "Tecnologia mais utilizada pelos entrevistados: " << entrevistados.getMaxByCampo("tecnologia") << endl;
+    cout << "Percentual feminino: " << (float)entrevistados.getStatistic({{"sexo", {"f"}}}) / entrevistados.getSize() << endl;
+    cout << "Numero de entrevistados que consideram educação a area prioritária: " << entrevistados.getStatistic({{"area", {"Educação"}}}) << endl;
     return 0;
 }

@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include <iomanip>
+#include<unordered_map>
 using namespace std;
 // Classe que representa um entrevistado.
 class Entrevistado

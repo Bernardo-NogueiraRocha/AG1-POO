@@ -7,6 +7,7 @@
 #include <iomanip>
 #include "CSVReader.h"
 #include "entrevistado.h"
+#include<unordered_map>
 using namespace std;
 #define CAMPOS 6
 
@@ -25,7 +26,7 @@ public:
     {
         campos = c;
         // Lê o arquivo CSV "Entrevistados.csv".
-        CSVReader reader("Entrevistados.csv");
+        CSVReader reader(nome);
         auto data = reader.getData();
         // Itera sobre os dados lidos e cria objetos da classe Entrevistado.
         for (const auto &s : data)
